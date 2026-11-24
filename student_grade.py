@@ -1,58 +1,55 @@
+def valid_mark(mark):
+    return 0 <= mark <= 100
+
+
 def average(marks):
+    if not marks:
+        return 0
     return sum(marks) / len(marks)
 
 
 def grade(avg):
-    if 90 <= avg <= 100:
+    if avg >= 90:
         return "S"
-    elif 80 <= avg < 90:
+    elif avg >= 80:
         return "A"
-    elif 65 <= avg < 80:
+    elif avg >= 70:
         return "B"
-    elif 50 <= avg < 65:
+    elif avg >= 60:
         return "C"
-    elif 40 <= avg < 50:
+    elif avg >= 50:
         return "D"
     else:
         return "F"
 
 
-def valid_mark(mark):
-    return 0 <= mark <= 100
-
-
 def is_pass(marks):
-    avg = average(marks)
-    return avg >= 40
+    return all(mark >= 40 for mark in marks)
 
-name = input("Enter student name: ")
-department = input("Enter department: ")
-semester = input("Enter semester: ")
 
-marks = []
+if __name__ == "__main__":
+    name = input("Enter student name: ")
+    department = input("Enter department: ")
+    semester = input("Enter semester: ")
 
-for i in range(1, 4):
-    while True:
-        mark = float(input(f"Enter marks for subject {i}: "))
+    marks = []
+    n = int(input("Enter number of subjects: "))
 
+    for i in range(n):
+        mark = float(input(f"Enter mark for subject {i + 1}: "))
         if valid_mark(mark):
             marks.append(mark)
-            break
         else:
             print("Invalid marks! Enter marks between 0 and 100.")
+            break
 
-avg = average(marks)
-student_grade = grade(avg)
+    avg = average(marks)
+    student_grade = grade(avg)
 
-print("\n------ STUDENT RESULT ------")
-print("Name:", name)
-print("Department:", department)
-print("Semester:", semester)
-print("Marks:", marks)
-print("Average:", avg)
-print("Grade:", student_grade)
-
-if is_pass(marks):
-    print("Result: PASS")
-else:
-    print("Result: FAIL")
+    print("\n------- STUDENT RESULT -------")
+    print("Name:", name)
+    print("Department:", department)
+    print("Semester:", semester)
+    print("Average:", avg)
+    print("Grade:", student_grade)
+    print("Status:", "Pass" if is_pass(marks) else "Fail")

@@ -1,6 +1,6 @@
-
 def average(marks):
     return sum(marks) / len(marks)
+
 
 def grade(avg):
     if 90 <= avg <= 100:
@@ -16,6 +16,11 @@ def grade(avg):
     else:
         return "F"
 
+
+def valid_mark(mark):
+    return 0 <= mark <= 100
+
+
 def is_pass(marks):
     avg = average(marks)
     return avg >= 40
@@ -27,8 +32,14 @@ semester = input("Enter semester: ")
 marks = []
 
 for i in range(1, 4):
-    mark = float(input(f"Enter marks for subject {i}: "))
-    marks.append(mark)
+    while True:
+        mark = float(input(f"Enter marks for subject {i}: "))
+
+        if valid_mark(mark):
+            marks.append(mark)
+            break
+        else:
+            print("Invalid marks! Enter marks between 0 and 100.")
 
 avg = average(marks)
 student_grade = grade(avg)
